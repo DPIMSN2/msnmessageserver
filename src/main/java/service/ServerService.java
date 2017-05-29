@@ -8,17 +8,17 @@ import jms.MessageServerApplicationGateway;
  * Created by Kevin.
  */
 public class ServerService implements ClientListener {
-    MessageServerApplicationGateway client;
+    MessageServerApplicationGateway messageServer;
     MessageDAO messageDAO;
 
     public ServerService() {
-        client = new MessageServerApplicationGateway();
-        client.addListener(this);
+        messageServer = new MessageServerApplicationGateway();
+        messageServer.addListener(this);
     }
 
     private void sendMessage(Message message) {
         //todo Mogelijkheid om te checken of de receiver de gebruiker geblocked heeft waardoor het bericht niet verzonden moet worden
-        client.sendMessage(message);
+        messageServer.sendMessage(message);
         System.out.println("handled message:" + message.getMessageText() + " Sender:" + message.getSender() + " Receiver:" + message.getReceiver());
     }
 

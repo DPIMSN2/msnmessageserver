@@ -34,8 +34,11 @@ public class MessageServerApplicationGateway implements JMSMessageReceiver {
     }
 
     public void addListener(ClientListener clientListener) {
-        this.listeners.add(clientListener);
+        if (!listeners.contains(clientListener)) {
+            this.listeners.add(clientListener);
+        }
     }
+
 
     public void messageReceived(String message) {
         Message receivedMessage = jsonToMessage(message);

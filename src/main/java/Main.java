@@ -5,6 +5,6 @@ import service.ServerService;
  */
 public class Main {
     public static void main(String[] argv){
-        ServerService serverService = new ServerService();
+        new ServerService();
     }
 }

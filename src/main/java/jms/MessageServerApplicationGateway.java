@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * Created by Kevin.
  */
-public class JMSClient implements JMSMessageReceiver {
+public class MessageServerApplicationGateway implements JMSMessageReceiver {
     private final static String SERVER_QUEUE = "chatServer";
     private List<ClientListener> listeners;
 
-    public JMSClient() {
-        JMSDispatcher.getInstance();
-        JMSConsumer.getInstance();
+    public MessageServerApplicationGateway() {
+        MessageSenderGateway.getInstance();
+        MessageReceiverGateway.getInstance();
 
         listeners = new ArrayList<ClientListener>();
         startListening();
@@ -27,7 +27,7 @@ public class JMSClient implements JMSMessageReceiver {
     public void sendMessage(Message message) {
         String jsonMessage = messageToJson(message);
         try {
-            JMSDispatcher.publishMessage(message.getReceiver().getUsername(), jsonMessage);
+            MessageSenderGateway.publishMessage(message.getReceiver().getUsername(), jsonMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,8 +50,8 @@ public class JMSClient implements JMSMessageReceiver {
 
     private void startListening() {
         try {
-            JMSConsumer.addListener(this);
-            JMSConsumer.receiveMessages(SERVER_QUEUE);
+            MessageReceiverGateway.addListener(this);
+            MessageReceiverGateway.receiveMessages(SERVER_QUEUE);
         } catch (IOException e) {
             e.printStackTrace();
         }

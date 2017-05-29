@@ -2,17 +2,17 @@ package service;
 
 import dao.MessageDAO;
 import domain.Message;
-import jms.JMSClient;
+import jms.MessageServerApplicationGateway;
 
 /**
  * Created by Kevin.
  */
 public class ServerService implements ClientListener {
-    JMSClient client;
+    MessageServerApplicationGateway client;
     MessageDAO messageDAO;
 
     public ServerService() {
-        client = new JMSClient();
+        client = new MessageServerApplicationGateway();
         client.addListener(this);
     }
 
